@@ -8,14 +8,13 @@ struct YourApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     // Pridanie UserSettings ako @StateObject
-    @StateObject private var userSettings = UserSettings() // Globálny objekt pre údaje používateľa
+    @StateObject var userSettings = UserSettings() // Globálny objekt pre údaje používateľa
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 // Rozhodne, ktorý pohľad ukázať podľa toho, či je používateľ prihlásený
                 if let _ = Auth.auth().currentUser {
-                    // Ak je používateľ prihlásený, ukážeme HomeView
                     HomeView()
                         .environmentObject(userSettings) // Poskytneme UserSettings objekt
                 } else {

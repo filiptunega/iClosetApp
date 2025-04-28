@@ -33,6 +33,7 @@ struct LoginView: View {
                             .keyboardType(.emailAddress)
                         
                         SecureField("Password", text: $password)
+                            .textContentType(.password)
                             .padding()
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(12)

@@ -40,12 +40,14 @@ struct RegisterView: View {
                             .padding(.horizontal)
                         
                         SecureField("Password", text: $password)
+                            .textContentType(.password)
                             .padding()
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(12)
                             .padding(.horizontal)
                         
                         SecureField("Confirm Password", text: $confirmPassword)
+                            .textContentType(.password)
                             .padding()
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(12)
