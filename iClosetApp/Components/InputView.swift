@@ -16,7 +16,7 @@ struct InputView: View {
     
     var body: some View {
             if secureField {
-                SecureField("Password", text: $text)
+                SecureField(title, text: $text)
                     .padding()
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(12)
@@ -25,7 +25,7 @@ struct InputView: View {
             }
             else
             {
-                TextField("Username", text: $text)
+                TextField(title, text: $text)
                     .padding()
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(12)

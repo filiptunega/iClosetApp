@@ -8,7 +8,7 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray4)]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: Gradient(colors: [Color(.systemGray3), Color(.systemGray4)]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
                 VStack {
@@ -33,7 +33,6 @@ struct LoginView: View {
                     .padding(.horizontal)
                     
                     Button{
-                        print("User log in..")
                         Task{
                             try await viewModel.logIn(withEmail: email, password: password)
                         }
@@ -48,11 +47,13 @@ struct LoginView: View {
                         
                         
                     }
+                    
                     .background(Color(.systemBlue))
                     .cornerRadius(12)
                     .padding(.top, 24,)
                     .padding(.horizontal)
-                    
+                    .disabled(!formIsCorrect)
+                    .opacity(formIsCorrect ? 1 : 0.5)
                     Spacer()
                     
                     
@@ -77,6 +78,19 @@ struct LoginView: View {
     }
 }
     
+extension LoginView: AuthIsCorrect {
+    var formIsCorrect: Bool {
+        let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        return !email.isEmpty && email.contains("@")
+        && !password.isEmpty
+        && password.count >= 6
+         && NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: email)
+        
+    }
+    
+    
+}
+
     struct LoginView_Previews: PreviewProvider {
         static var previews: some View {
             LoginView()

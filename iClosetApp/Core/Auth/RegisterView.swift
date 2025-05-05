@@ -31,7 +31,9 @@ struct RegisterView: View {
                                   title: "Password",
                                   placeholder: "Password",
                                   secureField: true)
-                        InputView(text: $confirmPassword, title: "Confirm password", placeholder: "Confirm your password")
+                        
+                        InputView(text: $confirmPassword, title: "Confirm password", placeholder: "Confirm your password",
+                                  secureField: true)
                         
                     }
                     
@@ -57,6 +59,8 @@ struct RegisterView: View {
                     .cornerRadius(12)
                     .padding(.top, 24,)
                     .padding(.horizontal)
+                    .disabled(!formIsCorrect)
+                    .opacity(formIsCorrect ? 1 : 0.5)
                     
                     
                     Spacer()
@@ -79,6 +83,21 @@ struct RegisterView: View {
             }
         }
     }
+}
+extension RegisterView: AuthIsCorrect {
+    var formIsCorrect: Bool {
+        let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        return !email.isEmpty
+        && !password.isEmpty
+        && password.count >= 6
+        && NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: email)
+        && password == confirmPassword
+        && !username.isEmpty
+        && username.count >= 3
+        
+    }
+    
+    
 }
     
     struct RegisterView_Previews: PreviewProvider {
