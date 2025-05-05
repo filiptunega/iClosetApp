@@ -15,6 +15,7 @@
 		53A17D022DBF78CF00CBD4C4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 53A17D012DBF78CF00CBD4C4 /* FirebaseFirestore */; };
 		53A17D042DBF78CF00CBD4C4 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 53A17D032DBF78CF00CBD4C4 /* FirebasePerformance */; };
 		53A17D062DBF78CF00CBD4C4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 53A17D052DBF78CF00CBD4C4 /* FirebaseStorage */; };
+		53B7BBC92DC8F636009EC477 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 53B7BBC82DC8F636009EC477 /* FirebaseFirestoreCombine-Community */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 				53A17D042DBF78CF00CBD4C4 /* FirebasePerformance in Frameworks */,
 				53A17CFA2DBF78CF00CBD4C4 /* FirebaseAppCheck in Frameworks */,
 				53A17CFC2DBF78CF00CBD4C4 /* FirebaseAuth in Frameworks */,
+				53B7BBC92DC8F636009EC477 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				53A17D002DBF78CF00CBD4C4 /* FirebaseCrashlytics in Frameworks */,
 				53A17CFE2DBF78CF00CBD4C4 /* FirebaseCore in Frameworks */,
 				53A17D062DBF78CF00CBD4C4 /* FirebaseStorage in Frameworks */,
@@ -92,6 +94,7 @@
 				53A17D012DBF78CF00CBD4C4 /* FirebaseFirestore */,
 				53A17D032DBF78CF00CBD4C4 /* FirebasePerformance */,
 				53A17D052DBF78CF00CBD4C4 /* FirebaseStorage */,
+				53B7BBC82DC8F636009EC477 /* FirebaseFirestoreCombine-Community */,
 			);
 			productName = iClosetApp;
 			productReference = 534B45062DBF6F3600D4BB27 /* iClosetApp.app */;
@@ -286,6 +289,7 @@
 				DEVELOPMENT_TEAM = CFYVVCF6XP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = I;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -315,6 +319,7 @@
 				DEVELOPMENT_TEAM = CFYVVCF6XP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = I;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -408,6 +413,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 53A17CF62DBF70E700CBD4C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		53B7BBC82DC8F636009EC477 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53A17CF62DBF70E700CBD4C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

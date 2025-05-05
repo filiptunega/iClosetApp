@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomeView: View {
+struct ContentView: View {
     @State private var searchText: String = ""
     @State private var selectedCategory: String = "Všetko"
     @State private var clothes = [
@@ -9,16 +9,17 @@ struct HomeView: View {
         "Kožená bunda",
         "Tenisky"
     ]
-    @StateObject var userSettings = UserSettings()
 
     let categories = ["Všetko", "Tričká", "Nohavice", "Bundy", "Topánky"]
 
     var body: some View {
         TabView {
-            // Home View
+            // 1️⃣ DOMOV
             NavigationStack {
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray4)]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray4)]),
+                                   startPoint: .top,
+                                   endPoint: .bottom)
                         .ignoresSafeArea()
 
                     VStack(alignment: .leading, spacing: 16) {
@@ -27,15 +28,15 @@ struct HomeView: View {
                             .bold()
                             .padding(.top, 10)
                             .padding(.leading, 8)
-                        
+
                         HStack {
                             TextField("Hľadať", text: $searchText)
                                 .padding(10)
                                 .background(.ultraThinMaterial)
                                 .cornerRadius(12)
-                            
+
                             Button(action: {
-                                // akcia na zoradenie
+                                // Placeholder akcia
                             }) {
                                 Image(systemName: "slider.horizontal.3")
                                     .font(.title2)
@@ -44,7 +45,7 @@ struct HomeView: View {
                                     .cornerRadius(12)
                             }
                         }
-                        
+
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(categories, id: \.self) { category in
@@ -66,7 +67,7 @@ struct HomeView: View {
                             }
                             .padding(.leading, 2)
                         }
-                        
+
                         ScrollView {
                             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                                 ForEach(clothes.filter { searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
@@ -74,7 +75,7 @@ struct HomeView: View {
                                         RoundedRectangle(cornerRadius: 16)
                                             .fill(Color(.systemGray5))
                                             .frame(height: 120)
-                                        
+
                                         Text(item)
                                             .font(.footnote)
                                             .foregroundColor(.primary)
@@ -88,13 +89,13 @@ struct HomeView: View {
                         }
                     }
                     .padding(.horizontal)
-                    
+
                     VStack {
                         Spacer()
                         HStack {
                             Spacer()
                             Button(action: {
-                                // pridať nový kus oblečenia
+                                // Placeholder akcia
                             }) {
                                 Image(systemName: "plus")
                                     .font(.title)
@@ -111,24 +112,28 @@ struct HomeView: View {
             .tabItem {
                 Label("Domov", systemImage: "house.fill")
             }
-            
-            // Profil View (Pridáme ProfileView sem a predáme userSettings)
-            ProfileView(userSettings: userSettings)
-                .tabItem {
-                    Label("Profil", systemImage: "person.fill")
+
+            // Druhá karta (profil) ako placeholder
+            NavigationStack {
+                VStack {
+                    Text("Profil (placeholder)")
+                        .font(.title)
+                        .padding()
+                    Spacer()
                 }
-            
-            // Nastavenia View
-            Text("Nastavenia Content")
-                .tabItem {
-                    Label("Nastavenia", systemImage: "gearshape.fill")
-                }
+                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray4)]),
+                                           startPoint: .top, endPoint: .bottom)
+                                .ignoresSafeArea())
+            }
+            .tabItem {
+                Label("Profil", systemImage: "person.fill")
+            }
         }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        ContentView()
     }
 }

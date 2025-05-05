@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCacp-LBwReLXZ77VM59c0ad_oTnLP6Bys</string>
+	<string>AIzaSyAwRyW6aJZzw7C4NKEpnaLCou1hIAq-BAk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>128618479621</string>
+	<string>606227473656</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.FilipTunega.iClosetApp</string>
 	<key>PROJECT_ID</key>
-	<string>iclosetapp-2e381</string>
+	<string>iclosetauth</string>
 	<key>STORAGE_BUCKET</key>
-	<string>iclosetapp-2e381.firebasestorage.app</string>
+	<string>iclosetauth.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:128618479621:ios:605b7d1357af13e02f5c6c</string>
+	<string>1:606227473656:ios:9ad56f7e9be1f16ca8070d</string>
 </dict>
 </plist>
