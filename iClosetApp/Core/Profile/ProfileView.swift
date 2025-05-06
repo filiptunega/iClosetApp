@@ -2,77 +2,110 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var showLogOutAlert = false
+    @State private var showDeleteAccountAlert = false
     
     var body: some View {
         if let user = viewModel.currentUser {
             NavigationStack {
-                List {
-                    // Profilová hlavička
-                    Section {
-                        HStack {
-                            Text(user.initials)
-                                .frame(width: 60, height: 60)
-                                .font(.title)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                                .background(Color(.systemBlue))
-                                .clipShape(Circle())
+                ZStack {
+                    Color("Background")
+                        .ignoresSafeArea()
+                    
+                    List {
+                        Section {
+                            HStack {
+                                Text(user.initials)
+                                    .frame(width: 60, height: 60)
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .background(Color("TextPrimary"))
+                                    .clipShape(Circle())
+                                
+                                VStack(alignment: .leading) {
+                                    Text(user.username)
+                                        .font(.headline)
+                                    Text(user.email)
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .padding(.vertical, 8)
+                        }
+                        
+                        Section(header: Text("Settings")) {
+                            NavigationLink(destination: Text("Edit closet")) {
+                                Label("Edit closet", systemImage: "square.and.pencil")
+                            }
+                            .listRowBackground(Color.white.opacity(0.8))
+                            .foregroundColor(Color("TextPrimary"))
+
+                            NavigationLink(destination: Text("Notifications")) {
+                                Label("Notifications", systemImage: "bell")
+                            }
+                            .listRowBackground(Color.white.opacity(0.8))
+                            .foregroundColor(Color("TextPrimary"))
+
+                        }
+                        
+                        Section(header: Text("Support")) {
+                            NavigationLink(destination: Text("About application")) {
+                                Label("About application", systemImage: "info.circle")
+                            }
+                            .listRowBackground(Color.white.opacity(0.8))
+                            .foregroundColor(Color("TextPrimary"))
+
                             
-                            VStack(alignment: .leading) {
-                                Text(user.username)
-                                    .font(.headline)
-                                Text(user.email)
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
+                            
+                            NavigationLink(destination: Text("Contact us")) {
+                                Label("Contact us", systemImage: "envelope")
+                            }
+                            .listRowBackground(Color.white.opacity(0.8))
+                            .foregroundColor(Color("TextPrimary"))
+                        }
+                        
+                        Section("Account") {
+                            Button(role: .destructive) {
+                                showLogOutAlert = true
+                            } label: {
+                                Label("Log out", systemImage: "arrow.left.circle")
+                            }
+                            .listRowBackground(Color.white.opacity(0.8))
+                            .foregroundColor(.red)
+                            .confirmationDialog("Are you sure you want to log out?", isPresented: $showLogOutAlert, titleVisibility: .visible){
+                                Button(role: .destructive) {
+                                    viewModel.signOut()
+                                } label: {
+                                    Label("Log out", systemImage: "arrow.left.circle")
+                                }
+                            }
+                            
+                            
+                            Button(role: .destructive) {
+                                showDeleteAccountAlert = true
+                            } label: {
+                                Label("Delete account", systemImage: "xmark.circle")
+                            }
+                            .listRowBackground(Color.white.opacity(0.8))
+                            .foregroundColor(.red)
+                            .confirmationDialog("Are you sure you want to delete your account?", isPresented: $showDeleteAccountAlert, titleVisibility: .visible){
+                                Button(role: .destructive) {
+                                    viewModel.signOut()
+                                } label: {
+                                    Label("Delete account", systemImage: "xmark.circle")
+                                }
                             }
                         }
-                        .padding(.vertical, 8)
                     }
-                    
-                    // Nastavenia
-                    Section(header: Text("Settings")) {
-                        NavigationLink(destination: Text("Edit closet")) {
-                            Label("Edit closet", systemImage: "square.and.pencil")
-                        }
-                        
-                        NavigationLink(destination: Text("Notifications")) {
-                            Label("Notifications", systemImage: "bell")
-                        }
-                    }
-                    
-                    // Podpora
-                    Section(header: Text("Support")) {
-                        NavigationLink(destination: Text("About application")) {
-                            Label("About application", systemImage: "info.circle")
-                        }
-                        
-                        NavigationLink(destination: Text("Contact us")) {
-                            Label("Contact us", systemImage: "envelope")
-                        }
-                    }
-                    
-                    // Odhlásenie (bez funkcie)
-                    Section("Account"){
-                        Button(role: .destructive) {
-                            viewModel.signOut()
-                        } label: {
-                            Label("Log out", systemImage: "arrow.left.circle")
-                                .foregroundColor(.red)
-                        }
-                        Button(role: .destructive) {
-                            
-                        } label: {
-                            Label("Delete account", systemImage: "xmark.circle")
-                                .foregroundColor(.red)
-                        }
-                    }
+                    .listStyle(.insetGrouped)
+                    .scrollContentBackground(.hidden)
                 }
-                .listStyle(.insetGrouped)
                 .navigationTitle("Profile")
-            }}
-            else {
-                Text("Loading...")
             }
+        } else {
+            Text("Loading...")
+        }
     }
 }
 

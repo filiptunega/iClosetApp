@@ -1,143 +1,113 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var searchText: String = ""
-    @State private var selectedCategory: String = "Všetko"
-    @State private var clothes = [
-        "Biele tričko",
-        "Modré rifle",
-        "Kožená bunda",
-        "Tenisky"
-    ]
-
-    let categories = ["Všetko", "Tričká", "Nohavice", "Bundy", "Topánky"]
-
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    @State var showProfile = false
+    
     var body: some View {
-        TabView {
-            // 1️⃣ DOMOV
-            NavigationStack {
-                ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray4)]),
-                                   startPoint: .top,
-                                   endPoint: .bottom)
-                        .ignoresSafeArea()
-                    HStack {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("iCloset")
-                                .font(.largeTitle)
-                                .bold()
-                                .padding(.top, 10)
-                                .padding(.leading, 8)
-                            
-                        Text("Ahoj")
-                    }
+        
+        if let user = viewModel.currentUser {
+            
+            NavigationView {
+                VStack(spacing: 16) {
                     
-
-                        HStack {
-                            TextField("Hľadať", text: $searchText)
-                                .padding(10)
-                                .background(.ultraThinMaterial)
-                                .cornerRadius(12)
-
-                            Button(action: {
-                                // Placeholder akcia
-                            }) {
-                                Image(systemName: "slider.horizontal.3")
-                                    .font(.title2)
-                                    .padding(10)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(12)
-                            }
-                        }
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(categories, id: \.self) { category in
-                                    Button(action: {
-                                        selectedCategory = category
-                                    }) {
-                                        Text(category)
-                                            .font(.subheadline)
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 8)
-                                            .background(.ultraThinMaterial)
-                                            .cornerRadius(20)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .stroke(selectedCategory == category ? Color.blue : Color.clear, lineWidth: 2)
-                                            )
-                                    }
-                                }
-                            }
-                            .padding(.leading, 2)
-                        }
-
-                        ScrollView {
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                                ForEach(clothes.filter { searchText.isEmpty ? true : $0.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
-                                    VStack {
-                                        RoundedRectangle(cornerRadius: 16)
-                                            .fill(Color(.systemGray5))
-                                            .frame(height: 120)
-
-                                        Text(item)
-                                            .font(.footnote)
-                                            .foregroundColor(.primary)
-                                            .padding(.top, 4)
-                                    }
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(16)
-                                }
-                            }
-                            .padding(.top, 10)
+                    HStack {
+                        Text("iCloset")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("TextPrimary"))
+                        
+                        Spacer()
+                        
+                        Button {
+                            showProfile.toggle()
+                        } label: {
+                            Text(user.initials)
+                                .frame(width: 40, height: 40)
+                                .font(.title)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .background(Color("TextPrimary"))
+                                .clipShape(Circle())
                         }
                     }
                     .padding(.horizontal)
-
+                    
+                    // Widgets
+                    HStack(spacing: 16) {
+                        WeatherWidgetView()
+                        DailyInspirationWidgetView()
+                    }
+                    .padding(.horizontal)
+                    
+                    // Main outfit
                     VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                // Placeholder akcia
-                            }) {
-                                Image(systemName: "plus")
-                                    .font(.title)
-                                    .padding()
-                                    .background(.ultraThinMaterial)
-                                    .clipShape(Circle())
-                                    .shadow(radius: 5)
+                        Text("AI-generated")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.bottom, 4)
+                        
+                        Image("main_outfit")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                    
+                    // Suggested outfits
+                    VStack(alignment: .leading) {
+                        Text("Suggested outfits")
+                            .font(.headline)
+                            .padding(.horizontal)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(1..<6) { i in
+                                    Image("outfit_\(i)")
+                                        .resizable()
+                                        .frame(width: 120, height: 160)
+                                        .cornerRadius(10)
+                                }
                             }
-                            .padding()
+                            .padding(.horizontal)
                         }
                     }
-                }
-            }
-            .tabItem {
-                Label("Domov", systemImage: "house.fill")
-            }
-
-            // Druhá karta (profil) ako placeholder
-            NavigationStack {
-                VStack {
-                    Text("Profil (placeholder)")
-                        .font(.title)
-                        .padding()
+                    
                     Spacer()
+                    
+                    // Tab bar
+                    TabBar()
                 }
-                .background(LinearGradient(gradient: Gradient(colors: [Color(.systemGray6), Color(.systemGray4)]),
-                                           startPoint: .top, endPoint: .bottom)
-                                .ignoresSafeArea())
-            }
-            .tabItem {
-                Label("Profil", systemImage: "person.fill")
+                .padding(.top)
+                .background(Color("Background").edgesIgnoringSafeArea(.all))
+                .sheet(isPresented: $showProfile) {
+                    ProfileView()
+                }
             }
         }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
+
+
+    struct TabBar: View {
+        var body: some View {
+            HStack {
+                Spacer()
+                Image(systemName: "house.fill")
+                Spacer()
+                Image(systemName: "plus.circle")
+                Spacer()
+                Image(systemName: "heart")
+                Spacer()
+            }
+            .padding()
+            .background(Color("TabBarBackground"))
+            .foregroundColor(.primary)
+            
+        }
     }
+#Preview{
+    HomeView()
 }
