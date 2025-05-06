@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct AddButton: View {
+    
+    @Binding var showAddClothing: Bool
+    
     var body: some View {
         Button(action: {
-            // Add new item
+            showAddClothing = true
         }) {
             Image(systemName: "plus")
                 .font(.title)

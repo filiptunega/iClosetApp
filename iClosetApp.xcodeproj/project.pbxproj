@@ -22,9 +22,22 @@
 		534B45062DBF6F3600D4BB27 /* iClosetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iClosetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		53EA2B412DCAA1C200D778DA /* Exceptions for "iClosetApp" folder in "iClosetApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 534B45052DBF6F3600D4BB27 /* iClosetApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		534B45082DBF6F3600D4BB27 /* iClosetApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				53EA2B412DCAA1C200D778DA /* Exceptions for "iClosetApp" folder in "iClosetApp" target */,
+			);
 			path = iClosetApp;
 			sourceTree = "<group>";
 		};
@@ -290,8 +303,11 @@
 				DEVELOPMENT_TEAM = CFYVVCF6XP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iClosetApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = iCloset;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to upload clothing photos.\nWe need access to the camera to upload clothing photos.\nWe need acces to the camera to upload clothing photos";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need acces to upload a picture of your clothing";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -320,8 +336,11 @@
 				DEVELOPMENT_TEAM = CFYVVCF6XP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iClosetApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = iCloset;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to upload clothing photos.\nWe need access to the camera to upload clothing photos.\nWe need acces to the camera to upload clothing photos";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need acces to upload a picture of your clothing";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

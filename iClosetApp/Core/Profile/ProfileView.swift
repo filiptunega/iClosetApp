@@ -7,6 +7,15 @@ struct ProfileView: View {
     @State private var showDeleteAccountAlert = false
     @State private var profileImage: UIImage?
 
+    init() {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithTransparentBackground()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(Color("TextPrimary"))]
+            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Color("TextPrimary"))]
+            
+            UINavigationBar.appearance().standardAppearance = navBarAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        }
     var body: some View {
         if let user = viewModel.currentUser {
             NavigationStack {
