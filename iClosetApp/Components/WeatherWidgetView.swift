@@ -10,6 +10,8 @@ import SwiftUI
 struct WeatherWidgetView: View {
     var body: some View {
         VStack(alignment: .leading) {
+            
+            
             Text("21° Sunny")
                 .font(.title3)
                 .bold()
@@ -17,12 +19,10 @@ struct WeatherWidgetView: View {
                 .font(.caption)
                 .foregroundColor(.gray)
         }
-        .frame(maxWidth: .infinity)
         .padding()
         .background(Color.white.opacity(0.8))
         .cornerRadius(12)
+        .frame(maxWidth: .infinity)
     }
 }
-#Preview{
-    HomeView()
-}
+

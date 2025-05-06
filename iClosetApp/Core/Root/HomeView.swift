@@ -1,13 +1,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    
-    @EnvironmentObject var viewModel: AuthViewModel
     @State var showProfile = false
-    
+    @EnvironmentObject var viewModel: AuthViewModel
     var body: some View {
-        
         if let user = viewModel.currentUser {
+            
+            
             
             NavigationView {
                 VStack(spacing: 16) {
@@ -23,13 +22,23 @@ struct HomeView: View {
                         Button {
                             showProfile.toggle()
                         } label: {
-                            Text(user.initials)
-                                .frame(width: 40, height: 40)
-                                .font(.title)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                                .background(Color("TextPrimary"))
-                                .clipShape(Circle())
+                            if !user.hasProfilePicture {
+                                Text(user.initials)
+                                    .frame(width: 40, height: 40)
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .background(Color("TextPrimary"))
+                                    .clipShape(Circle())
+                            } else {
+                                Text("PP")
+                                    .frame(width: 40, height: 40)
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .background(Color("TextPrimary"))
+                                    .clipShape(Circle())
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -75,9 +84,7 @@ struct HomeView: View {
                     }
                     
                     Spacer()
-                    
-                    // Tab bar
-                    TabBar()
+
                 }
                 .padding(.top)
                 .background(Color("Background").edgesIgnoringSafeArea(.all))
@@ -86,21 +93,20 @@ struct HomeView: View {
                 }
             }
         }
+        else {
+            Text("Loading data...")
+        }
     }
 }
-
-
 
     struct TabBar: View {
         var body: some View {
             HStack {
+                Image(systemName: "tshirt.fill")
                 Spacer()
                 Image(systemName: "house.fill")
                 Spacer()
-                Image(systemName: "plus.circle")
-                Spacer()
                 Image(systemName: "heart")
-                Spacer()
             }
             .padding()
             .background(Color("TabBarBackground"))

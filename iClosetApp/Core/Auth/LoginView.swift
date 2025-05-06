@@ -4,95 +4,104 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @EnvironmentObject var viewModel: AuthViewModel
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color(.systemGray3), Color(.systemGray4)]), startPoint: .top, endPoint: .bottom)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Text("Log In")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.top, 40)
-                    
-                    VStack(spacing: 16,){
+                LinearGradient(gradient: Gradient(colors: [Color("BackgroundTop"), Color("BackgroundBottom")]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                .ignoresSafeArea()
+
+                VStack(spacing: 32) {
+                    Spacer()
+
+                    // App Logo or Title
+                    VStack(spacing: 8) {
+                        Text("iCloset")
+                            .font(.system(size: 36, weight: .bold))
+                            .foregroundColor(Color("TextPrimary"))
+                        Text("Welcome back!")
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                    }
+
+                    // Inputs
+                    VStack(spacing: 20) {
                         InputView(text: $email,
                                   title: "Email",
-                                  placeholder: "Email")
+                                  placeholder: "Enter your email")
+                        .keyboardType(.emailAddress)
                         .autocapitalization(.none)
+
                         InputView(text: $password,
                                   title: "Password",
-                                  placeholder: "Password",
+                                  placeholder: "Enter your password",
                                   secureField: true)
-                        
                     }
-                    
-                    .padding(.top, 20)
                     .padding(.horizontal)
-                    
-                    Button{
-                        Task{
+
+                    // Login Button
+                    Button {
+                        Task {
                             try await viewModel.logIn(withEmail: email, password: password)
                         }
                     } label: {
-                        HStack{
-                            Text("Log in")
+                        HStack {
+                            Spacer()
+                            Text("Log In")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
                             Image(systemName: "arrow.right")
-                            
+                                .foregroundColor(.white)
+                            Spacer()
                         }
-                        .foregroundColor(.white)
-                        .frame(width: UIScreen.main.bounds.width-32, height: 48)
-                        
-                        
+                        .padding()
+                        .background(Color("TextPrimary"))
+                        .cornerRadius(12)
+                        .shadow(radius: 3)
                     }
-                    
-                    .background(Color(.systemBlue))
-                    .cornerRadius(12)
-                    .padding(.top, 24,)
                     .padding(.horizontal)
                     .disabled(!formIsCorrect)
                     .opacity(formIsCorrect ? 1 : 0.5)
+
                     Spacer()
-                    
-                    
-                    NavigationLink{
+
+                    // Sign Up Navigation
+                    NavigationLink {
                         RegisterView()
                             .navigationBarBackButtonHidden(true)
-                    }
-                    label:{
-                        
-                        HStack(spacing: 2){
-                            Text("Don't have an account? ")
+                    } label: {
+                        HStack(spacing: 4) {
+                            Text("Don't have an account?")
+                                .foregroundColor(.gray)
                             Text("Sign Up")
                                 .fontWeight(.bold)
+                                .foregroundColor(Color("TextPrimary"))
                         }
-                        .font(.system(size: 14))
+                        .font(.footnote)
                     }
-                    .padding()
+
+                    Spacer().frame(height: 20)
                 }
-                .navigationBarBackButtonHidden(true)
             }
         }
     }
 }
-    
+
+// MARK: - Form Validation
 extension LoginView: AuthIsCorrect {
     var formIsCorrect: Bool {
         let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        return !email.isEmpty && email.contains("@")
-        && !password.isEmpty
-        && password.count >= 6
-         && NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: email)
-        
+        return !email.isEmpty && !password.isEmpty && password.count >= 6 &&
+        NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: email)
     }
-    
-    
 }
 
-    struct LoginView_Previews: PreviewProvider {
-        static var previews: some View {
-            LoginView()
-        }
+// MARK: - Preview
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+            .environmentObject(AuthViewModel())
     }
+}

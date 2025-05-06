@@ -12,7 +12,24 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                HomeView()
+                TabView {
+                    MyClosetView()
+                        .tabItem{
+                            Image(systemName: "tshirt")
+                            Text("My Closet")
+                        }
+                    HomeView()
+                        .tabItem{
+                            Image(systemName: "house")
+                            Text("Home")
+                        }
+                    FavoritesView()
+                        .tabItem{
+                            Image(systemName: "star")
+                            Text("Favourites")
+                        }
+                }
+                .accentColor(Color("TextPrimary"))
             }
             else {
                 LoginView()
@@ -24,3 +41,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+
