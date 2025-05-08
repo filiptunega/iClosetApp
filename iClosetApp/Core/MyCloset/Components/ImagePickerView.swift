@@ -12,16 +12,19 @@ struct ImagePickerView: View {
 
     // MARK: - View
     var body: some View {
-        VStack(spacing: 16) {
-            header
-            imagePreview
-            photoPickerButton
-            cameraButton
-            continueButton
+        ZStack {
+            Color("Background")
+                .ignoresSafeArea()
+
+            VStack(spacing: 20) {
+                header
+                imagePreview
+                photoPickerButton
+                cameraButton
+                continueButton
+            }
+            .padding(.vertical)
         }
-        .navigationTitle("Choose Photo")
-        .padding(.vertical)
-        .background(Color("Background"))
         .onChange(of: selectedItem) {
             Task {
                 await loadImageFromPicker()
@@ -29,7 +32,7 @@ struct ImagePickerView: View {
         }
     }
 
-    // MARK: - Subviews
+    // MARK: - Header
     private var header: some View {
         Text("Add a Photo")
             .font(.largeTitle)
@@ -38,6 +41,7 @@ struct ImagePickerView: View {
             .padding(.top)
     }
 
+    // MARK: - Image Preview
     private var imagePreview: some View {
         Group {
             if let image = image {
@@ -47,13 +51,17 @@ struct ImagePickerView: View {
                     .frame(height: 250)
                     .cornerRadius(12)
                     .padding()
+                    .background(Color("CardBackground"))
+                    .cornerRadius(12)
+                    .shadow(color: Color("ShadowColor"), radius: 4, x: 0, y: 2)
             } else {
                 Rectangle()
-                    .fill(Color.gray.opacity(0.2))
+                    .fill(Color("Labels").opacity(0.2))
                     .frame(height: 250)
                     .overlay(
                         Text("No image selected")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color("TextSecondary"))
+                            .font(.subheadline)
                     )
                     .cornerRadius(12)
                     .padding()
@@ -61,39 +69,30 @@ struct ImagePickerView: View {
         }
     }
 
+    // MARK: - Photo Picker Button
     private var photoPickerButton: some View {
         PhotosPicker(selection: $selectedItem, matching: .images) {
             Label("Choose Photo", systemImage: "photo")
-                .font(.headline)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(uiImage == nil ? Color("TextPrimary") : Color.clear)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("TextPrimary"), lineWidth: 2)
-                )
-                .foregroundColor(uiImage == nil ? .white : Color("TextPrimary"))
-                .cornerRadius(10)
-                .padding(.horizontal)
+                .modifier(ActionButtonStyle(
+                    isPrimary: uiImage == nil,
+                    labelColor: uiImage == nil ? Color("Picker1") : Color("TextPrimary"),
+                    backgroundColor: uiImage == nil ? Color("Labels") : .clear
+                ))
         }
+        .padding(.horizontal)
     }
 
+    // MARK: - Camera Button
     private var cameraButton: some View {
-        Button(action: {
+        Button {
             showCamera = true
-        }) {
+        } label: {
             Label("Take Photo", systemImage: "camera")
-                .font(.headline)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .background(uiImage == nil ? Color("TextPrimary") : Color.clear)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color("TextPrimary"), lineWidth: 2)
-                )
-                .foregroundColor(uiImage == nil ? .white : Color("TextPrimary"))
-                .cornerRadius(10)
-                .padding(.horizontal)
+                .modifier(ActionButtonStyle(
+                    isPrimary: uiImage == nil,
+                    labelColor: uiImage == nil ? Color("Picker1") : Color("TextPrimary"),
+                    backgroundColor: uiImage == nil ? Color("Labels") : .clear
+                ))
         }
         .sheet(isPresented: $showCamera) {
             CameraView { takenImage in
@@ -101,23 +100,25 @@ struct ImagePickerView: View {
                 self.image = Image(uiImage: takenImage)
             }
         }
+        .padding(.horizontal)
     }
 
+    // MARK: - Continue Button
     private var continueButton: some View {
-        Button(action: {
+        Button {
             if let uiImage = uiImage {
                 onImagePicked(uiImage)
             }
-        }) {
+        } label: {
             Text("Continue")
                 .font(.headline)
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(uiImage != nil ? Color("TextPrimary") : Color.gray)
-                .foregroundColor(.white)
+                .background(uiImage != nil ? Color("Labels") : Color("Labels").opacity(0.3))
+                .foregroundColor(Color("Picker1"))
                 .cornerRadius(10)
                 .padding(.horizontal)
-                .opacity(uiImage != nil ? 1 : 0.5)
+                .opacity(uiImage != nil ? 1 : 0.6)
         }
         .disabled(uiImage == nil)
     }
@@ -130,4 +131,30 @@ struct ImagePickerView: View {
             self.image = Image(uiImage: uiImg)
         }
     }
+}
+
+// MARK: - Button Modifier
+struct ActionButtonStyle: ViewModifier {
+    var isPrimary: Bool
+    var labelColor: Color
+    var backgroundColor: Color
+
+    func body(content: Content) -> some View {
+        content
+            .font(.headline)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(backgroundColor)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color("TextPrimary"), lineWidth: isPrimary ? 0 : 2)
+            )
+            .foregroundColor(labelColor)
+            .cornerRadius(10)
+    }
+}
+
+// MARK: - Preview
+#Preview {
+    ImagePickerView(onImagePicked: { _ in })
 }

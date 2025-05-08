@@ -29,7 +29,7 @@ struct FavoritesView: View {
                                         .font(.title)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.white)
-                                        .background(Color("TextPrimary"))
+                                        .background(Color("Labels"))
                                         .clipShape(Circle())
                                 } else {
                                     Text("PP")

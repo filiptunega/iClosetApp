@@ -84,7 +84,7 @@ struct RegisterView: View {
                     } label: {
                         HStack(spacing: 4) {
                             Text("Already have an account?")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("TextSecondary"))
                             Text("Log In")
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("TextPrimary"))

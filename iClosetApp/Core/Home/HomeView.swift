@@ -2,29 +2,31 @@ import SwiftUI
 
 // MARK: - HomeView
 struct HomeView: View {
-    // MARK: - Properties
     @State var showProfile = false
     @EnvironmentObject var viewModel: AuthViewModel
 
-    // MARK: - Body
     var body: some View {
         if let user = viewModel.currentUser {
             NavigationView {
-                VStack(spacing: 16) {
-                    header(user: user)
-                    widgetsSection
-                    mainOutfitSection
-                    suggestedOutfitsSection
-                    Spacer()
+                ScrollView {
+                    VStack(spacing: 24) {
+                        header(user: user)
+                        widgetsSection
+                        mainOutfitSection
+                        suggestedOutfitsSection
+                    }
+                    .padding()
                 }
-                .padding(.top)
-                .background(Color("Background").edgesIgnoringSafeArea(.all))
+                .background(Color("Background").ignoresSafeArea())
                 .sheet(isPresented: $showProfile) {
                     ProfileView()
                 }
+                .navigationBarHidden(true)
             }
         } else {
-            Text("Loading data...")
+            ProgressView("Loading data...")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color("Background").ignoresSafeArea())
         }
     }
 
@@ -47,10 +49,9 @@ struct HomeView: View {
                         .font(.title)
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
-                        .background(Color("TextPrimary"))
+                        .background(Color("Labels"))
                         .clipShape(Circle())
                 } else {
-                    // TODO: Replace with actual profile image
                     Text("PP")
                         .frame(width: 40, height: 40)
                         .font(.title)
@@ -61,73 +62,55 @@ struct HomeView: View {
                 }
             }
         }
-        .padding(.horizontal)
     }
 
-    // MARK: - Widgets
+    // MARK: - Widgets Section
     private var widgetsSection: some View {
         HStack(spacing: 16) {
             WeatherWidgetView()
             DailyInspirationWidgetView()
         }
-        .padding(.horizontal)
     }
 
     // MARK: - Main Outfit
     private var mainOutfitSection: some View {
-        VStack {
-            Text("AI-generated")
-                .font(.caption)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("AI-generated outfit")
+                .font(.headline)
                 .foregroundColor(.gray)
-                .padding(.bottom, 4)
 
             Image("main_outfit")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: 300)
+                .clipped()
                 .cornerRadius(12)
         }
-        .padding(.horizontal)
     }
 
     // MARK: - Suggested Outfits
     private var suggestedOutfitsSection: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("Suggested outfits")
                 .font(.headline)
-                .padding(.horizontal)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(1..<6) { i in
                         Image("outfit_\(i)")
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 120, height: 160)
+                            .clipped()
                             .cornerRadius(10)
                     }
                 }
-                .padding(.horizontal)
             }
         }
     }
 }
 
-// MARK: - TabBar
-struct TabBar: View {
-    var body: some View {
-        HStack {
-            Image(systemName: "tshirt.fill")
-            Spacer()
-            Image(systemName: "house.fill")
-            Spacer()
-            Image(systemName: "heart")
-        }
-        .padding()
-        .background(Color("TabBarBackground"))
-        .foregroundColor(.primary)
-    }
-}
-
 // MARK: - Preview
 #Preview {
-    HomeView()
+    HomeView().environmentObject(AuthViewModel())
 }

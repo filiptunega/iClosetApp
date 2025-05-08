@@ -8,40 +8,43 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                // Elegantný gradient pozadia
                 LinearGradient(gradient: Gradient(colors: [Color("BackgroundTop"), Color("BackgroundBottom")]),
                                startPoint: .top,
                                endPoint: .bottom)
                 .ignoresSafeArea()
 
-                VStack(spacing: 32) {
+                VStack(spacing: 36) {
                     Spacer()
 
-                    // App Logo or Title
-                    VStack(spacing: 8) {
+                    // Logo alebo názov aplikácie
+                    VStack(spacing: 10) {
                         Text("iCloset")
-                            .font(.system(size: 36, weight: .bold))
+                            .font(.system(size: 40, weight: .bold))
                             .foregroundColor(Color("TextPrimary"))
+                            .shadow(color: .black.opacity(0.1), radius: 5, x: 0, y: 4)
                         Text("Welcome back!")
-                            .font(.title3)
-                            .foregroundColor(.gray)
+                            .font(.title2)
+                            .foregroundColor(Color("TextSecondary"))
                     }
 
-                    // Inputs
-                    VStack(spacing: 20) {
+                    // Formuláre pre email a heslo
+                    VStack(spacing: 24) {
                         InputView(text: $email,
                                   title: "Email",
                                   placeholder: "Enter your email")
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
+                        .padding(.horizontal, 24)
 
                         InputView(text: $password,
                                   title: "Password",
                                   placeholder: "Enter your password",
                                   secureField: true)
+                        .padding(.horizontal, 24)
                     }
-                    .padding(.horizontal)
 
-                    // Login Button
+                    // Tlačidlo pre prihlásenie
                     Button {
                         Task {
                             try await viewModel.logIn(withEmail: email, password: password)
@@ -59,22 +62,22 @@ struct LoginView: View {
                         .padding()
                         .background(Color("TextPrimary"))
                         .cornerRadius(12)
-                        .shadow(radius: 3)
+                        .shadow(radius: 5)
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 24)
                     .disabled(!formIsCorrect)
                     .opacity(formIsCorrect ? 1 : 0.5)
 
                     Spacer()
 
-                    // Sign Up Navigation
+                    // Odkaz na registráciu
                     NavigationLink {
                         RegisterView()
                             .navigationBarBackButtonHidden(true)
                     } label: {
-                        HStack(spacing: 4) {
+                        HStack(spacing: 6) {
                             Text("Don't have an account?")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color("TextSecondary"))
                             Text("Sign Up")
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("TextPrimary"))

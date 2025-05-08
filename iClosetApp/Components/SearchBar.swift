@@ -14,7 +14,7 @@ struct SearchBar: View {
     var body: some View {
         TextField("Search...", text: $text)
             .padding(10)
-            .background(Color.white)
+            .background(Color("CardBackground"))
             .cornerRadius(10)
             .padding(.horizontal)
             .padding(.top, 8)

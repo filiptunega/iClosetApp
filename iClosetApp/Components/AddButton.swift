@@ -20,7 +20,7 @@ struct AddButton: View {
                 .font(.title)
                 .foregroundColor(.white)
                 .padding()
-                .background(Color("TextPrimary"))
+                .background(Color("Labels"))
                 .clipShape(Circle())
                 .shadow(radius: 4)
         }

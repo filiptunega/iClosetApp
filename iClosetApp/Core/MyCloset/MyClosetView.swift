@@ -52,7 +52,7 @@ struct MyClosetView: View {
                                         .font(.title)
                                         .fontWeight(.semibold)
                                         .foregroundColor(.white)
-                                        .background(Color("TextPrimary"))
+                                        .background(Color("Labels"))
                                         .clipShape(Circle())
                                 } else {
                                     Text("PP")
@@ -69,9 +69,10 @@ struct MyClosetView: View {
                         SearchBar(text: $searchText)
                         
                         ScrollView {
-                            LazyVGrid(columns: columns, spacing: 16) {
+                            LazyVGrid(columns: columns, spacing: 2) {
                                 ForEach(filteredClothes) { item in
                                     ClothingCardView(item: item, isEditing: isEditing)
+                                        .frame(maxHeight: 250) // max výška jednej karty
                                 }
                             }
                             .padding()
