@@ -82,7 +82,7 @@ struct MyClosetView: View {
                         ProfileView()
                     }
                     .sheet(isPresented: $showAddClothing) {
-                        AddItemSheetView(isPresented: $showAddClothing)
+                        AddClothingView()
                     }
                     
                     AddButton(showAddClothing: $showAddClothing)

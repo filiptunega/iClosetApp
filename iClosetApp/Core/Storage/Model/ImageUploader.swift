@@ -1,3 +1,11 @@
+//
+//  ImageUploader.swift
+//  iClosetApp
+//
+//  Created by Filip Tunega on 08/05/2025.
+//
+
+
 import Foundation
 import FirebaseStorage
 import UIKit

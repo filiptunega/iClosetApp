@@ -1,3 +1,11 @@
+//
+//  CameraView.swift
+//  iClosetApp
+//
+//  Created by Filip Tunega on 08/05/2025.
+//
+
+
 import SwiftUI
 import UIKit
 
