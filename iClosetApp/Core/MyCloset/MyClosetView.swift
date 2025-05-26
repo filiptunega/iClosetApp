@@ -7,20 +7,15 @@ struct MyClosetView: View {
     @State private var showAddClothing: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @StateObject private var closetVM = ClosetViewModel()
     
-    let clothes: [ClothingItem] = [
-        ClothingItem(name: "White Shirt", description: "Cotton, slim fit", imageName: "shirt.white"),
-        ClothingItem(name: "Beige Pants", description: "Casual chinos", imageName: "pants.beige"),
-        ClothingItem(name: "Navy Blazer", description: "Formal jacket", imageName: "blazer.navy"),
-        ClothingItem(name: "Sneakers", description: "White leather", imageName: "shoes.sneakers")
-    ]
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     var filteredClothes: [ClothingItem] {
         if searchText.isEmpty {
-            return clothes
+            return closetVM.clothes
         } else {
-            return clothes.filter {
+            return closetVM.clothes.filter {
                 $0.name.localizedCaseInsensitiveContains(searchText) ||
                 $0.description.localizedCaseInsensitiveContains(searchText)
             }
@@ -29,7 +24,6 @@ struct MyClosetView: View {
     
     var body: some View {
         if let user = viewModel.currentUser {
-            
             NavigationStack {
                 ZStack(alignment: .bottomTrailing) {
                     Color("Background").ignoresSafeArea()
@@ -72,7 +66,7 @@ struct MyClosetView: View {
                             LazyVGrid(columns: columns, spacing: 2) {
                                 ForEach(filteredClothes) { item in
                                     ClothingCardView(item: item, isEditing: isEditing)
-                                        .frame(maxHeight: 250) // max výška jednej karty
+                                        .frame(maxHeight: 250)
                                 }
                             }
                             .padding()
@@ -88,10 +82,15 @@ struct MyClosetView: View {
                     
                     AddButton(showAddClothing: $showAddClothing)
                 }
-                
-                    
-                
+                .onAppear {
+                    if closetVM.clothes.isEmpty {
+                        closetVM.fetchClothes(for: user.id)
+                    }
+                }
             }
+        } else {
+            Text("Not logged in")
+                .foregroundColor(.gray)
         }
     }
 }

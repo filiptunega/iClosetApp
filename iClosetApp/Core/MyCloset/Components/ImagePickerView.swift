@@ -17,7 +17,7 @@ struct ImagePickerView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
-                header
+            
                 imagePreview
                 photoPickerButton
                 cameraButton
@@ -33,13 +33,6 @@ struct ImagePickerView: View {
     }
 
     // MARK: - Header
-    private var header: some View {
-        Text("Add a Photo")
-            .font(.largeTitle)
-            .fontWeight(.semibold)
-            .foregroundColor(Color("TextPrimary"))
-            .padding(.top)
-    }
 
     // MARK: - Image Preview
     private var imagePreview: some View {

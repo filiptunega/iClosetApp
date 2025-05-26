@@ -9,7 +9,7 @@ struct ClothingDetailView: View {
 
             ScrollView {
                 VStack(spacing: 16) {
-                    Image(item.imageName)
+                    Image(item.imageUrl)
                         .resizable()
                         .scaledToFit()
                         .frame(height: 300)

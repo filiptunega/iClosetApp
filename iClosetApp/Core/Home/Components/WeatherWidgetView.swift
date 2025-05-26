@@ -8,12 +8,11 @@ struct WeatherWidgetView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(alignment: .center, spacing: 8) {
-                // Dynamické používanie systemName ikonky s farebným podkladom
                 Image(systemName: weatherIcon(for: weatherService.condition))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(iconColor(for: weatherService.condition)) // Dynamická farba
+                    .foregroundColor(iconColor(for: weatherService.condition))
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\(weatherService.temperature) \(weatherService.condition)")
@@ -63,27 +62,26 @@ struct WeatherWidgetView: View {
         case "storm":
             return "cloud.bolt.rain.fill"
         default:
-            return "questionmark.circle" // Predvolená ikona
+            return "questionmark.circle"
         }
     }
 
-    // Dynamické priradenie farby ikonky podľa stavu počasia
     private func iconColor(for condition: String) -> Color {
         switch condition.lowercased() {
         case "clear":
-            return .yellow // Slnečné počasie (žltá)
+            return .yellow
         case "clouds":
-            return Color("TextPrimary") // Oblačno (biela)
+            return Color("TextPrimary")
         case "rain":
-            return .blue // Dážď (modrá)
+            return .blue
         case "snow":
-            return Color("TextPrimary") // Sneženie (biela)
+            return Color("TextPrimary")
         case "fog":
-            return .gray // Hmla (šedá)
+            return .gray
         case "storm":
-            return .blue // Búrka (modrá)
+            return .blue
         default:
-            return .gray // Predvolená farba
+            return .gray 
         }
     }
 }

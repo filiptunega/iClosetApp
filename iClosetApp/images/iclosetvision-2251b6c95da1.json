@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "iclosetvision",
+  "private_key_id": "2251b6c95da1f46e9c59107a7d86300c9b158759",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxZdmFJ3m24eH/\nh7Pm9HeSGfP1PXMLoSuEWjZVnOtcfusNFAZiX9Xei6x2xvyCTlBd9jYS1/QuAr8n\nTwHjPf1LuHx+hStzuHJUgCvtjH6vbMoGLujSCsI+4Ii6GIo5YpIsVFSK/0H90r/k\nv/kGWZ8a8/C5QaAq3jF60IO23VmBanqLP6CmzPDnX4NNyAXDgn6hp8czdfkmBKO6\nq2s/FSIIxHX1iLU3nNQJuVtQ1S/lB6ryyPVykelX1O4+gCZD2Qj8rXxDMrmIhZiS\n4HslTdXcqbUu0mfLSmXm8iCVypEzNoCltA4eEdhUfSmFsvuM1yyJIxPiJM2oS09+\nzJZcjbaBAgMBAAECggEAAaPTljs5y84JkKsH97UtT40Z6UZfwapUKIN3EVUA+UGo\nXD5R6zSv+Zr56D4cI/DTxf7udn+XSkSu22mmi/Zvo3Sq4cvK/aVFbniXR16jO22O\ng3lUAEtBNaijWkaQrQ8B6KMLMMmDL3oJuXnI7wpy2ce/vdkF0ThNKxcB7QsS7oWv\nYturE8tl/bs8NOT7WJ8AFTQX+EO93e8zgKIPyPbpDD/8iuWI5TYJarKkGvvY/II+\nShVt5hie6mIZry4z6rVM3lbnDR9rAwuzbcELZVKXO4UXsNyxgklNAOSjgWyi6NFr\nZ+9eRrY9HCobR1vsMCKW/UqEeAQb3DZjbCjSBLwgQQKBgQDVktI4AvJMGmRv8fOS\n0m2yn7o9zA/u4IRslHjz/qnbECHYEtfenGHRLeNnttig+k6XAoinitZ+x45COT/H\nWiXD+l5HXwdMUvBftkiuCMvLrpFj3ME86YMJUQx+WLFSSQp2WIqESZjmYujGTjFB\n+8A1Ku7XYUAvKAwZST8K92Pi4QKBgQDUo1UK/etEL47Vb7up6H4k7bQIYquJesq0\n6JEP7/lTdOJDFoQ9/9Vcml6sw4w6Hd5ADY+QqkmmcJ0fxFVBHfyDaEG/vTY0yeKX\n+sEqMFRGriodxZN63+MlC3HqyLB9aKxGk0tXNs3vH6RqWBtwxtsAHZ0RK3ZcbkWU\ntzBZ6GPnoQKBgQCi6xoTgiPk6+kcAByHLqBhtzix9V1eIsTBs0zFC8n0gszecBle\nBjsT/4ZOUovT2L1kspkd/Wn8Uivx1owRfXH7mpyaoyIFFeuph3rPz4Puvx7HZ9m8\npoC/9aSrKOszUuZ5OreHjEDn1iGtTG6E4A9SP4rsn5H/pvP7wgUmT2tR4QKBgCJb\nRZliD4pT2NM5m2vHieIzmfwk3Sx4b5otXYrirjlC0HAgijtuQ64Trypg6h5Vxxw4\nVLL+IKpI1cpVMaU00CD3TnBJhSGgYQFHXcCQUH2fFGT9EGgxFoVcxQo3ZPTOXc+F\naw3rZ/iz9x/LnptpNedd4YvtptEmbA2sT56nQsUhAoGAdq/onjMKj6FlU4DEgxI1\njslD7fu0KzlHfMBuUxgDcSicGWtQVOzhktVr3/D8Zju3qFs6qokHuRhs04j+HvPK\nRNTWSFneoV7GXXopHSdkYzQc4vnVF6vm4bZudJKgHgfKwljOBF+goVPCo/MAMAfa\ndsjxWGX0FK4sF+fXuWXzrwc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "icloset-358@iclosetvision.iam.gserviceaccount.com",
+  "client_id": "112484173574727845435",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/icloset-358%40iclosetvision.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

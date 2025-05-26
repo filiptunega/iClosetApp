@@ -7,12 +7,18 @@ struct ClothingCardView: View {
     var body: some View {
         NavigationLink(destination: ClothingDetailView(item: item)) {
             VStack(spacing: 8) {
-                Image(item.imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 140) // väčší obrázok
-                    .cornerRadius(10)
-                    .padding(.top, 8)
+                AsyncImage(url: URL(string: item.imageUrl)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 140)
+                        .cornerRadius(10)
+                        .padding(.top, 8)
+                } placeholder: {
+                    ProgressView()
+                        .frame(height: 140)
+                        .padding(.top, 8)
+                }
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(item.name)
@@ -32,6 +38,6 @@ struct ClothingCardView: View {
             .cornerRadius(12)
             .frame(height: 230)
         }
-        .buttonStyle(PlainButtonStyle()) // odstráni highlight efekt odkazu
+        .buttonStyle(PlainButtonStyle())
     }
 }
