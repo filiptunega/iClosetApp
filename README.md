@@ -1,5 +1,5 @@
 # iClosetApp
-OS aplikácia, kam si zaevidujete svoju skriňu pomocou fotoaparátu a pomocou AI vám vytvorí outfity.
+iOS aplikácia, kam si zaevidujete svoju skriňu pomocou fotoaparátu a pomocou AI vám vytvorí outfity.
 
 swift, swiftUI
 firebase
